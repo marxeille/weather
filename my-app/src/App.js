@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import cityList from './city.list.json'
+import CityWeather from './CityWeather' 
 import {APIID} from './constant'
 import Lodash from 'lodash'
 
@@ -42,17 +43,22 @@ class App extends Component {
   
   render() {
     let {cityWeather}  = this.state;
-
+    console.log(cityWeather);
     return (
       <div className="App">
         <div className="content">
         {
-          Object.keys(cityWeather).map((key) => (
+          <Router>
+          <div>
+          {Object.keys(cityWeather).map((key) => (
             <ul>
-              <caption> {cityWeather[key].name} </caption>
+              <h3><Link to={'/' + cityWeather[key].name.toLowerCase().replace(/ /g,'') + '/' + cityWeather[key].id}>{cityWeather[key].name}</Link></h3>
               <li> Weather: {cityWeather[key].weather[0].main} - {cityWeather[key].weather[0].description} </li>
             </ul>
-          ))
+          ))}
+          <Route path="/:city/:id" component={CityWeather} />
+          </div>
+          </Router>
         }
         </div>
       </div>
