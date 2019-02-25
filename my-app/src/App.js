@@ -29,6 +29,7 @@ class App extends Component {
       }
       j++;
     });
+
     fetch('http://api.openweathermap.org/data/2.5/group?id='+cityIds+'&units=metric&appid='+APIID+'')
       .then(res => res.json())
       .then(data => {
@@ -41,22 +42,19 @@ class App extends Component {
   
   render() {
     let {cityWeather}  = this.state;
+
     return (
       <div className="App">
-        <header className="App-header"> 
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="content">
+        {
+          Object.keys(cityWeather).map((key) => (
+            <ul>
+              <caption> {cityWeather[key].name} </caption>
+              <li> Weather: {cityWeather[key].weather[0].main} - {cityWeather[key].weather[0].description} </li>
+            </ul>
+          ))
+        }
+        </div>
       </div>
     );
   }
