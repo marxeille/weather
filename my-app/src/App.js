@@ -43,7 +43,6 @@ class App extends Component {
   
   render() {
     let {cityWeather}  = this.state;
-    console.log(cityWeather);
     return (
       <div className="App">
         <div className="content">
